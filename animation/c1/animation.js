@@ -19,6 +19,12 @@ math.config({
   number: 'Fraction'
 })
 
+// initialise sliders
+$("#r1").on("change", function() {update()})
+$("#r2").on("change", function() {update()})
+var r1 = $("#r1").val() * rConst;
+var r2 = $("#r2").val() * rConst;
+
 // initialise graph
 var data = coordRange.map(function (i) {
     return {
@@ -123,6 +129,54 @@ function refreshLayout () {
         ax: 0,
         ay: -30,
       },
+      { // R1 arrow
+        x: 7 + r1*graphConst,
+        y: -0.5 + r2*graphConst,
+        xref: 'x',
+        yref: 'y',
+        showarrow: true,
+        arrowcolor: "black",
+        arrowhead: 2,
+        ax: -50,
+        ay: 0,
+      },
+      { // R1 text
+        x: 7 + r1*graphConst,
+        y: -1 + r2*graphConst,
+        text: '$R_1, r_1$',
+        textposition: "bottom",
+        xref: 'x',
+        yref: 'y',
+        showarrow: true,
+        arrowcolor: "transparent",
+        arrowhead: 0,
+        ax: 0,
+        ay: 0,
+      },
+      { // R2 arrow
+        x: 5 + r1*graphConst,
+        y: 2 + r2*graphConst,
+        xref: 'x',
+        yref: 'y',
+        showarrow: true,
+        arrowcolor: "black",
+        arrowhead: 2,
+        ax: 0,
+        ay: 50,
+      },
+      { // R2 text
+        x: 5 + r1*graphConst,
+        y: 2.5 + r2*graphConst,
+        text: '$R_2, r_2$',
+        textposition: "bottom",
+        xref: 'x',
+        yref: 'y',
+        showarrow: true,
+        arrowcolor: "transparent",
+        arrowhead: 0,
+        ax: 0,
+        ay: 0,
+      },
     ],
   }
 }
@@ -131,11 +185,6 @@ function refreshLayout () {
 refreshLayout();
 Plotly.newPlot('graph1', data, layout)
 
-// initialise sliders
-$("#r1").on("change", function() {update()})
-$("#r2").on("change", function() {update()})
-var r1 = $("#r1").val() * rConst;
-var r2 = $("#r2").val() * rConst;
 
 function update () {
   compute();
@@ -160,7 +209,7 @@ function compute () {
     -(1/5)*r1,
     -(4/25)*r1 + (3/25)*r2,
     (3/25)*r1 + (4/25)*r2,
-    (1/5)*r1 ], 2);
+    (1/5)*r1 ], 4);
 
   data = coordRange.map(function (i) {
     return {
@@ -178,10 +227,10 @@ function compute () {
       connectgaps: false,
   }});
 
-  rForce = math.multiply([[3/5,0],[0,1/5]],[r1,r2]);
+  rForce = math.round(math.multiply([[3/5,0],[0,1/5]],[r1,r2]),4);
 
-  r10 = ((nForce[0]!==0) ? math.parse(nForce[0]).toTex()+" \\frac{EA}{a}" : "0" );
-  r11 = ((nForce[1]!==0) ? ((nForce[1]>0) ? "+" : "")+math.parse(nForce[1]).toTex()+" \\frac{EA}{a} (\\frac{4}{5})" : "+0" );
+  r10 = ((nForce[0]!==0) ? math.parse(nForce[0]).toTex()+" \\frac{EA}{a} (-1)" : "0" );
+  r11 = ((nForce[1]!==0) ? ((nForce[1]>0) ? "+" : "")+math.parse(nForce[1]).toTex()+" \\frac{EA}{a} (-\\frac{4}{5})" : "+0" );
   r12 = ((nForce[2]!==0) ? ((nForce[2]>0) ? "+" : "")+math.parse(nForce[2]).toTex()+" \\frac{EA}{a} (\\frac{3}{5})" : "+0" );
   r13 = ((nForce[3]!==0) ? ((nForce[3]>0) ? "+" : "")+math.parse(nForce[3]).toTex()+" \\frac{EA}{a}" : "+0" );
   r1final = ((rForce[0]!==0) ? ((rForce[0]==1) ? "" : ((rForce[0]==-1) ? "-" : math.parse(rForce[0]).toTex())) +" \\frac{EA}{a}" : "0" );
