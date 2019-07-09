@@ -7,9 +7,9 @@ math.config({
 
 // initialise graph
 let data, layout;
-const origin = [3.2, 0];
+const origin = [3., 0];
 var massCoords = [origin[0], origin[1]];
-var m = 1, c = 0.25, k = 1;
+var m = 1, c = 0.3, k = 1;
 var dt = 0.1;
 var eps = 0.001;
 
