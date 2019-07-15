@@ -44,6 +44,23 @@ Deque.prototype.toArray = function Deque$toArray() {
     return ret;
 };
 
+// endslice
+Deque.prototype.toArraySlice = function Deque$toArraySlice(slice) {
+    var len = this._length;
+    if (len < slice) {
+      return this.toArray();
+    } else {
+      var ret = new Array(slice);
+      var front = this._front;
+      var capacity = this._capacity;
+      var start = (front + len - slice) % capacity;
+      for (var j = 0; j < slice; ++j) {
+        ret[j] = this[(front + start + j) & (capacity - 1)];
+      }
+      return ret;
+    };
+}
+
 Deque.prototype.push = function Deque$push(item) {
     var argsLength = arguments.length;
     var length = this._length;
