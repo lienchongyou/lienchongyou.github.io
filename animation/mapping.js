@@ -71,6 +71,7 @@ const layout = {
     },
     xaxis: {
       range: [-1,6],
+      fixedrange: true,
       showgrid: false,
       zeroline: false,
       showline: false,
@@ -80,6 +81,7 @@ const layout = {
     },
     yaxis: {
       range: [-1,5],
+      fixedrange: true,
       showgrid: false,
       zeroline: false,
       showline: false,
@@ -268,6 +270,7 @@ var layout2 = {
     },
     xaxis: {
       range: [-3.5,8.5],
+      fixedrange: true,
       showgrid: false,
       zeroline: false,
       showline: false,
@@ -277,6 +280,7 @@ var layout2 = {
     },
     yaxis: {
       range: [-1,4],
+      fixedrange: true,
       showgrid: false,
       zeroline: false,
       showline: false,
@@ -421,8 +425,8 @@ $(document).ready(function () {
   plot1.on('plotly_click', function(dataOutput) {
     var xaxis = plot1._fullLayout.xaxis;
     var yaxis = plot1._fullLayout.yaxis;
-    var mousex = xaxis.p2l(dataOutput.event.x-10)
-    var mousey = yaxis.p2l(dataOutput.event.y-10)
+    var mousex = xaxis.p2l(dataOutput.event.x)
+    var mousey = yaxis.p2l(dataOutput.event.y)
 
     const eps = 0.51;
     newData = Array.from(data); // create shallow copy
