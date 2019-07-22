@@ -935,7 +935,7 @@ $(document).ready(function () {
       });
       Plotly.restyle(plot2, {
         x: [[0, 5]],
-        y: [[0, 0]],
+        y: [[2.5/math.sqrt(3), 2.5/math.sqrt(3)]],
       });
 
       $("#smallMatrix1").show();
